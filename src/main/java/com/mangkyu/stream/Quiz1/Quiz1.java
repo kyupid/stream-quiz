@@ -1,6 +1,7 @@
 package com.mangkyu.stream.Quiz1;
 
 import com.opencsv.CSVReader;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
@@ -14,21 +15,36 @@ public class Quiz1 {
     public Map<String, Integer> quiz1() throws IOException {
         List<String[]> csvLines = readCsvLines();
         Map<String, Integer> map = new HashMap<>();
-        for (String[] s : csvLines) {
-            String[] split = s[1].split(":");
-            for (String str : split) {
-                String trim = str.trim();
-                if (map.get(trim) == null) {
-                    map.put(trim, 1);
-                } else {
-                    Integer value = map.get(trim);
-                    value = 1 + value;
-                    map.put(trim, value);
-                }
-//                System.out.println(trim);
-            }
-        }
+        csvLines.stream()
+                .map(line -> line[1].replaceAll("\\s", ""))
+                .map(word -> word.split(":"))
+                .flatMap(Arrays::stream)
+                .forEach(word -> {
+                    if (map.get(word) == null) {
+                        map.put(word, 1);
+                    } else {
+                        Integer val = map.get(word);
+                        map.put(word, val + 1);
+                    }
+                });
         return map;
+//        Map<String, Integer> map = new HashMap<>();
+//        for (String[] s : csvLines) {
+//            String[] split = s[1].split(":");
+//            for (String str : split) {
+//                String trim = str.trim();
+//                if (map.get(trim) == null) {
+//                    map.put(trim, 1);
+//                } else {
+//                    Integer value = map.get(trim);
+//                    value = 1 + value;
+//                    map.put(trim, value);
+//                }
+//                System.out.println(trim);
+//            }
+//        }
+//        return map;
+//        return new HashMap<>();
     }
 
     // 1.2 각 취미를 선호하는 정씨 성을 갖는 인원이 몇 명인지 계산하여라.
