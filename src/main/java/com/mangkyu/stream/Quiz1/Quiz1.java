@@ -4,10 +4,7 @@ import com.opencsv.CSVReader;
 
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Quiz1 {
@@ -64,8 +61,54 @@ public class Quiz1 {
 
     // 1.3 소개 내용에 '좋아'가 몇번 등장하는지 계산하여라.
     public int quiz3() throws IOException {
+        // arr[2]에 소개에서 "좋아" 를 탐색
+        // "좋아"가 몇번 나오는지 계산
         List<String[]> csvLines = readCsvLines();
-        return 0;
+        List<String> list = new ArrayList<>();
+//        for (String[] s : csvLines) {
+//            list.add(s[2]);
+//        }
+//        System.out.println("list: " + list);
+//        int count = 0;
+//        for (String s : list) {
+//            if (s.contains("좋아")) {
+//                count++;
+//            }
+//        }
+//        csvLines.stream()
+//                .map(line -> line[2])
+//                .flatMap(line -> {
+//                    if (line.contains("좋아")) {
+//                        char[] chars = line.toCharArray();
+//                        for (int i = 0; i < chars.length; i++) {
+//                            if (chars[i] == '좋' && chars[i + 1] == '아') {
+//                                count++;
+//                            }
+//                        }
+//                        return count;
+//                    } else {
+//                        return 0;
+//                    }
+//                })
+//                .filter()
+        Integer 좋아 = csvLines.stream()
+                .map(line -> line[2])
+                .map(string -> {
+                    if (string.contains("좋아")) {
+                        char[] chars = string.toCharArray();
+                        int count = 0;
+                        for (int i = 0; i < chars.length; i++) {
+                            if (chars[i] == '좋' && chars[i + 1] == '아') {
+                                count++;
+                            }
+                        }
+                        return count;
+                    } else {
+                        return 0;
+                    }
+                })
+                .reduce(0, Integer::sum);
+        return 좋아;
     }
 
     private List<String[]> readCsvLines() throws IOException {
