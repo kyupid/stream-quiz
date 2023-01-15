@@ -91,24 +91,34 @@ public class Quiz1 {
 //                    }
 //                })
 //                .filter()
-        Integer 좋아 = csvLines.stream()
-                .map(line -> line[2])
-                .map(string -> {
-                    if (string.contains("좋아")) {
-                        char[] chars = string.toCharArray();
-                        int count = 0;
-                        for (int i = 0; i < chars.length; i++) {
-                            if (chars[i] == '좋' && chars[i + 1] == '아') {
-                                count++;
-                            }
-                        }
-                        return count;
-                    } else {
-                        return 0;
-                    }
-                })
+//        Integer 좋아 = csvLines.stream()
+//                .map(line -> line[2])
+//                .map(string -> {
+//                    if (string.contains("좋아")) {
+//                        char[] chars = string.toCharArray();
+//                        int count = 0;
+//                        for (int i = 0; i < chars.length; i++) {
+//                            if (chars[i] == '좋' && chars[i + 1] == '아') {
+//                                count++;
+//                            }
+//                        }
+//                        return count;
+//                    } else {
+//                        return 0;
+//                    }
+//                })
+//                .reduce(0, Integer::sum);
+//        return 좋아;
+        return csvLines.stream()
+                .map(line -> countContains(line[2], 0))
                 .reduce(0, Integer::sum);
-        return 좋아;
+    }
+    private int countContains(String src, int fromIndex) {
+        int index = src.indexOf("좋아", fromIndex);
+        if (index >= 0) {
+            return 1 + countContains(src, index + "좋아".length());
+        }
+        return 0;
     }
 
     private List<String[]> readCsvLines() throws IOException {

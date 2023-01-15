@@ -1,8 +1,10 @@
 package com.mangkyu.stream.Quiz3;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Quiz3 {
 
@@ -12,7 +14,19 @@ public class Quiz3 {
     // 3.1 모든 숫자 쌍의 배열 리스트를 반환하여라.
     // ex) numbers1 = [1,2,3], numbers2 = [3,4] -> [(1,3), (1,4), (2,3), (2,4), (3,3), (3,4)]
     public List<Integer[]> quiz1() {
-        return Collections.emptyList();
+        List<Integer[]> list = new ArrayList<>();
+        for (Integer i : numbers1) {
+            for (Integer j : numbers2) {
+                list.add(new Integer[]{i, j});
+            }
+        }
+
+        List<Integer[]> collect = numbers1.stream()
+                .flatMap(i -> numbers2.stream()
+                        .map(j -> new Integer[]{i, j}))
+                .collect(Collectors.toList());
+
+        return collect;
     }
 
     // 3.2 모든 숫자 쌍의 곱이 가장 큰 값을 반환하여라.
