@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class Quiz5 {
@@ -38,10 +37,7 @@ public class Quiz5 {
                 .distinct()
                 .limit(6)
                 .forEach(System.out::println);
-                
 
-//                .forEach(System.out::println);
-//                .collect(Collectors.toList());
     }
 
 
