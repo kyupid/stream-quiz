@@ -35,9 +35,7 @@ public class Quiz3 {
         return numbers1.stream()
                 .flatMap(i -> numbers2.stream()
                         .map(j -> j * i))
-                .sorted((n1,n2) -> Integer.compare(n2,n1))
-                .collect(Collectors.toList())
-                .get(0);
+                .max(Integer::compare).orElse(0);
     }
 
 }
