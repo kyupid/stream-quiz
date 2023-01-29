@@ -32,7 +32,12 @@ public class Quiz3 {
     // 3.2 모든 숫자 쌍의 곱이 가장 큰 값을 반환하여라.
     // ex) numbers1 = [1,2,3], numbers2 = [3,4] -> 12
     public int quiz2() {
-        return 0;
+        return numbers1.stream()
+                .flatMap(i -> numbers2.stream()
+                        .map(j -> j * i))
+                .sorted((n1,n2) -> Integer.compare(n2,n1))
+                .collect(Collectors.toList())
+                .get(0);
     }
 
 }
