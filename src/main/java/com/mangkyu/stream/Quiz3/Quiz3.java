@@ -33,9 +33,13 @@ public class Quiz3 {
     // ex) numbers1 = [1,2,3], numbers2 = [3,4] -> 12
     public int quiz2() {
         return numbers1.stream()
-                .flatMapToInt(n1 -> numbers2.stream()
-                        .mapToInt(n2 -> n1 * n2))
-                .max().orElse(0);
+                .flatMap(i -> numbers2.stream()
+                        .map(j -> j * i))
+                .max(Integer::compare).orElse(0);
+//        return numbers1.stream()
+//                .flatMapToInt(n1 -> numbers2.stream()
+//                        .mapToInt(n2 -> n1 * n2))
+//                .max().orElse(0);
     }
 
 }

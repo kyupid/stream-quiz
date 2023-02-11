@@ -1,8 +1,10 @@
 package com.mangkyu.stream.Quiz2;
 
-import java.io.*;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.*;
 
 public class Quiz2 {
 
@@ -11,34 +13,19 @@ public class Quiz2 {
     // 2.1 List에 저장된 단어들의 접두사가 각각 몇개씩 있는지 Map<String, Integer>으로 변환하여라.
     // ex) ("T", 1), ("a", 2) ...
     public Map<String, Integer> quiz1() {
-        // char 단위로 나눈다
-        // 전체 순회하여 같은게 있으면 count++
-        //   같은건 list에서 삭제
-
-        // 반복
-
-        Map<String, Integer> map = new HashMap<>();
-        WORDS.stream()
-                .map(word -> word.charAt(0))
-                .forEach(c -> {
-                    for (int i = 1; i < WORDS.size(); i++) {
-                        if (WORDS.get(i).charAt(0) == c) {
-                            map.merge(c.toString(), 1, Integer::sum);
-                        }
-                    }
-                });
-        // 2.1 List에 저장된 단어들의 접두사가 각각 몇개씩 있는지 Map<String, Integer>으로 변환하여라.
         return WORDS.stream()
-                .map(w -> w.substring(0, 1))
-                .collect(Collectors.toMap(
-                        prefix -> prefix, prefix -> 1,
-                        (oldValue, newValue) -> (newValue += oldValue)));
+                .map(word -> word.substring(0, 1))
+                .collect(Collectors.toMap(c -> c, c -> 1, Integer::sum));
     }
 
-    // 2.2 List에 저장된 단어들 중에서 단어의 길이가 2 이상인 경우에만, 모든 단어를 대문자로 변환하여 스페이스로 구분한 하나의 문자열로 합한 결과를 반환하여라.
+    // 2.2 List에 저장된 단어들 중에서 단어의 길이가 2 이상인 경우에만,
+    // 모든 단어를 대문자로 변환하여 스페이스로 구분한 하나의 문자열로 합한 결과를 반환하여라.
     // ex) ["Hello", "a", "Island", "b"] -> “H I”
     public String quiz2() {
-        return null;
+        return WORDS.stream()
+                .filter(word -> word.toCharArray().length > 1)
+                .map(word -> word.toUpperCase().substring(0, 1))
+                .collect(Collectors.joining(" "));
     }
 
 }
