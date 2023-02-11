@@ -54,7 +54,10 @@ public class Quiz1 {
                 .map(line -> line[1].replaceAll("\\s", ""))
 //                .forEach(System.out::println);
                 .flatMap(hobbies -> Arrays.stream(hobbies.split(":")))
-                .collect(Collectors.toMap(hobby -> hobby, hobby -> 1, (oldVal, newVal) -> newVal += oldVal));
+                .collect(Collectors.toMap(
+                        hobby -> hobby,
+                        hobby -> 1,
+                        (oldVal, newVal) -> newVal += oldVal));
 //        return result;
 //        return new HashMap<>();
     }
