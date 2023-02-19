@@ -63,17 +63,29 @@ public class  Quiz4 {
 
     // 4.5 부산에 거래자가 있는지를 확인하라.
     public boolean quiz5() {
-        return false;
+        return transactions.stream()
+                .anyMatch(transaction -> "Busan".equals(transaction.getTrader().getCity()));
+//        return false;
     }
 
     // 4.6 서울에 거주하는 거래자의 모든 거래 금액을 구하라.
     public List<Integer> quiz6() {
-        return Collections.emptyList();
+        return transactions.stream()
+                .filter(t -> "Seoul".equals(t.getTrader().getCity()))
+                .map(Transaction::getValue)
+                .collect(Collectors.toList());
+//        return Collections.emptyList();
     }
 
     // 4.7 모든 거래 내역중에서 최댓값과 최솟값을 구하라. 단, 최댓값은 reduce를 이용하고 최솟값은 stream의 min()을 이용하라.
     public Integer[] quiz7() {
-        return new Integer[]{0, 0};
+        int max = transactions.stream()
+                .map(Transaction::getValue)
+                .reduce(0, (a,b) -> a > b ? a : b);
+        int min = transactions.stream()
+                .mapToInt(Transaction::getValue)
+                .min().orElse(0);
+        return new Integer[]{max, min};
     }
 
 }
