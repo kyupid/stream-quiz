@@ -34,7 +34,9 @@ public class Answer5 {
     public List<Integer[]> quiz4() {
         return IntStream.rangeClosed(1, 6)
                 .boxed()
-                .flatMap(i -> IntStream.rangeClosed(1, 6).boxed().map(j -> new Integer[]{i, j}))
+                .flatMap(i -> IntStream.rangeClosed(1, 6)
+                        .boxed()
+                        .map(j -> new Integer[]{i, j}))
                 .filter(arr -> arr[0] + arr[1] == 6)
                 .collect(Collectors.toList());
     }

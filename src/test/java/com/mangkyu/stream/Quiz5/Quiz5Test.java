@@ -1,6 +1,6 @@
 package com.mangkyu.stream.Quiz5;
 
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -52,5 +52,8 @@ class Quiz5Test {
         }
         return true;
     }
+
+//    @Test
+//    @DisplayName("quiz4 ")
 
 }
